@@ -24,3 +24,9 @@ export default defineConfigWithVueTs(
   ...oxlint.configs['flat/recommended'],
   skipFormatting,
 )
+
+module.exports = {
+  rules: {
+    'vue/multi-word-component-names': 'off' // 完全禁用该规则
+  }
+}
