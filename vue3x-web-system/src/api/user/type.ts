@@ -7,12 +7,14 @@ export interface loginForm {
 
 //服务器返回用户登录响应体数据类型
 interface dataType {
-    token: string
+    token?: string,
+    message?: string
 }
 
 //登录接口返回的类型
 export interface loginResponseData {
     code: number,
+    token: string,
     data: dataType,
     message: string,
 }

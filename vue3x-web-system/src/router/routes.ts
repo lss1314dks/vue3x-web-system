@@ -11,7 +11,7 @@ export const constantRouter = [
         //配置首页
         //登录成功以后展示的数据路由
         path: '/',
-        component: () => import('@/views/home/index.vue'),
+        component: () => import('@/layout/index.vue'),
         name: 'layout',
         children: [
             {
