@@ -1,7 +1,25 @@
 <template>
     <el-button type="" size="small" icon="Refresh" circle @click="updateRefresh" />
     <el-button type="" size="small" icon="FullScreen" circle @click="fullScreen" />
-    <el-button type="" size="small" icon="Setting" circle />
+
+
+    <el-popover placement="bottom" title="主题设置" :width="200" trigger="hover">
+        <el-form>
+            <el-form-item label="主题颜色">
+                <el-color-picker :teleported="false" @change="setColor" size="small" v-model="color" show-alpha />
+            </el-form-item>
+            <el-form-item label="暗黑模式">
+                <el-switch @change="changeDark" v-model="dark" size="default" active-text="Open" inactive-text="Close"
+                    active-icon="MoonNight" inline-prompt inactive-icon="Sunny" />
+            </el-form-item>
+        </el-form>
+        <template #reference>
+            <el-button type="" size="small" icon="Setting" circle />
+        </template>
+    </el-popover>
+
+
+
     <!-- 头像 -->
     <img :src="userStore.avatar" style="width: 40px; height: 40px; margin: 0 10px; border-radius: 50%;">
     <!-- 下拉菜单 -->
@@ -38,6 +56,9 @@ onMounted(() => {
     userStore.userInfo()
 })
 
+//手机开关数据
+let dark = ref(false);
+
 //刷新按钮点击事件
 const updateRefresh = () => {
     LayOutSettingStore.refresh = !LayOutSettingStore.refresh;
@@ -67,6 +88,26 @@ const logout = () => {
             redirect: $route.path
         }
     });
+}
+
+
+
+import { ref } from 'vue'
+
+const color = ref('rgba(255, 69, 0, 0.68)')
+// Switch开关的change事件
+const changeDark = () => {
+    //获取HTML根节点
+    let html = document.documentElement;
+    // 判断是否有类名dark
+    dark.value ? html.className = 'dark' : html.className = ''
+}
+
+// 主题颜色设置
+const setColor = () => {
+    //通过js修改根节点样式对象
+    const html = document.documentElement;
+    html.style.setProperty('--el-color-primary', color.value);
 }
 
 </script>

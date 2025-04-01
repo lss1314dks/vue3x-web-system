@@ -26,6 +26,7 @@ import pinia from './store'
 //引入路由守卫
 import './permission';
 
+import 'element-plus/theme-chalk/dark/css-vars.css'
 //获取应用实例对象
 const app = createApp(App)
 //将应用挂载到挂载点上
