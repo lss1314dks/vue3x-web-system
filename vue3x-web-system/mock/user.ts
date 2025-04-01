@@ -4,7 +4,7 @@ function createUserList() {
         {
             userId: 1,
             avatar:
-                "https://img.yzcdn.cn/vant/cat.jpeg",
+                "../../../../public/logo.png",
             username: "admin",
             password: "123456",
             desc: "超级管理员",
@@ -56,12 +56,12 @@ export default [
     {
         url: '/api/user/info',
         method: 'get',
-        response: ({ headers }) => {
+        response: ( request ) => {
             //获取token
-            const token = headers.token
+            const token = request.headers.token
             //调用获取用户信息函数
             const userList = createUserList().find(
-                (item) => item.token == token
+                (item) => item.token === token
             )
             //没有用户返回失败信息
             if (!userList) {

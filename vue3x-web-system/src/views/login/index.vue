@@ -8,7 +8,7 @@
                 <el-form class="login-form" :rules="rules" ref="loginForms">
                     <h1>Hello</h1>
                     <h2>欢迎来到{{ setting.title
-                        }}</h2>
+                    }}</h2>
                     <!-- 账号 -->
                     <el-form-item prop="username">
                         <el-input :prefix-icon="User" v-model="loginForm.username">
@@ -35,7 +35,7 @@ import { reactive, ref } from 'vue'
 import setting from '@/setting'
 //引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus/es/components/index.mjs'
 import { getTime } from '@/utils/time'
 
@@ -44,7 +44,8 @@ let loginForms = ref();
 
 let useStore = useUserStore();
 //获取路由器
-let $router = useRouter()
+let $router = useRouter();
+let $route = useRoute();
 
 //定义变量控制按钮加载效果
 let loading = ref(false)
@@ -67,7 +68,9 @@ const login = async () => {
             title: `Hi ,${getTime()}好`,
             message: '欢迎回来',
         })
-        $router.push({ path: '/' })
+        //判断是否携带query参数
+        let redirect: any = $route.query.redirect;
+        $router.push({ path: redirect || '/' })
         loading.value = false
 
     } catch (error) {
